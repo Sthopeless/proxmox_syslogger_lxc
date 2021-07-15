@@ -167,8 +167,6 @@ pct start $CTID
 pct push $CTID setup.sh /setup.sh -perms 755
 pct exec $CTID /setup.sh
 
-pct push $CTID config.toml /config.toml -perms 755
-
 # Get network details and show completion message
 IP=$(pct exec $CTID ip a s dev eth0 | sed -n '/inet / s/\// /p' | awk '{print $2}')
 info "Successfully created LXC to $CTID."
