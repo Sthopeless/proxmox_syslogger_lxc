@@ -42,14 +42,14 @@ apt-get -qqy install \
 
 ## Instaling Python3-pip and Tailon
 msg "Instaling Python3-pip & Tailon"
-apt-get -qqy install python3-pip
+apt-get -qqy install python3-pip &>/dev/null
 pip3 install -q tailon
 
 ## Configuring
-SYSLOGGER_FOLDER="/syslogger"
+SYSLOGGER_FOLDER="/syslogger/"
 mkdir -p $(dirname $SYSLOGGER_FOLDER)
-mv /frontend.sh /syslogger/frontend.sh
-mv /config.toml /syslogger/config.toml
+# mv /frontend.sh /syslogger/frontend.sh
+# mv /config.toml /syslogger/config.toml
 mv /crontab /var/spool/cron/crontabs/root
 
 # Customize container
