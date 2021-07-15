@@ -51,6 +51,9 @@ FRONTEND_FILE="/syslogger/frontend.sh"
 CONFIG_TOML_FILE="/syslogger/config.toml"
 CRONTAB_FILE="/var/spool/cron/crontabs/root"
 mkdir -p $(dirname $SYSLOGGER_FOLDER)
+mkdir -p $(dirname $FRONTEND_FILE)
+mkdir -p $(dirname $CONFIG_TOML_FILE)
+mkdir -p $(dirname $CRONTAB_FILE)
 wget -q https://github.com/Sthopeless/proxmox_syslogger_lxc/raw/main/frontend.sh -O $FRONTEND_FILE
 wget -q https://github.com/Sthopeless/proxmox_syslogger_lxc/raw/main/config.toml -O $CONFIG_TOML_FILE
 wget -q https://github.com/Sthopeless/proxmox_syslogger_lxc/raw/main/crontab -O $CRONTAB_FILE
