@@ -46,17 +46,25 @@ apt-get -qqy install python3-pip &>/dev/null
 pip3 install -q tailon
 
 ## Configuring
+msg "Almost done..."
 SYSLOGGER_FOLDER="/syslogger"
+TAR_FILE="/syslogger/syslogger.tar.xz"
 FRONTEND_FILE="/syslogger/frontend.sh"
 CONFIG_TOML_FILE="/syslogger/config.toml"
-CRONTAB_FILE="/var/spool/cron/crontabs/root"
+SYSLOG_FILE="/syslogger/syslog"
+TAILON_FILE="/syslogger/tailon"
+CRONTAB_BEFORE="/syslogger/crontab"
+CRONTAB_AFTER="/var/spool/cron/crontabs/root"
+
 mkdir -p $(dirname $SYSLOGGER_FOLDER)
-mkdir -p $(dirname $FRONTEND_FILE)
+mkdir -p $(dirname $TAR_FILE)
+
 mkdir -p $(dirname $CONFIG_TOML_FILE)
 mkdir -p $(dirname $CRONTAB_FILE)
-wget -q https://github.com/Sthopeless/proxmox_syslogger_lxc/raw/main/frontend.sh -O $FRONTEND_FILE
-wget -q https://github.com/Sthopeless/proxmox_syslogger_lxc/raw/main/config.toml -O $CONFIG_TOML_FILE
-wget -q https://github.com/Sthopeless/proxmox_syslogger_lxc/raw/main/crontab -O $CRONTAB_FILE
+wget -q https://github.com/Sthopeless/proxmox_syslogger_lxc/raw/main/syslogger.tar.xz -O $TAR_FILE
+cd $SYSLOGGER_FOLDER; tar -xvf syslogger.tar.xz &>/dev/null
+chmod 755 $FRONTEND_FILE $TAILON_FILE
+mv $CRONTAB_BEFORE $CRONTAB_AFTER
 
 # Customize container
 msg "Customizing container..."
