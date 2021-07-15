@@ -46,6 +46,7 @@ apt-get -qqy install python3-pip &>/dev/null
 pip3 install -q tailon
 
 ## Configuring
+SYSLOGGER_FOLDER="/syslogger"
 FRONTEND_FILE="/syslogger/frontend.sh"
 CONFIG_TOML_FILE="/syslogger/config.toml"
 CRONTAB_FILE="/var/spool/cron/crontabs/root"
