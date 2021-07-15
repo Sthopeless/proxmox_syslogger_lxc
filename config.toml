@@ -1,6 +1,6 @@
 title = "Tailon file viewer"
 relative-root = "/"
-listen-addr = ["0.0.0.0:80"]
+listen-addr = ["0.0.0.0:8080"]
 allow-download = true
 allow-commands = ["tail", "grep", "sed", "awk"]
 

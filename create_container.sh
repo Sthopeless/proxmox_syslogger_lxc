@@ -165,8 +165,9 @@ pct unmount $CTID && unset MOUNT
 msg "Starting LXC container..."
 pct start $CTID
 pct push $CTID setup.sh /setup.sh -perms 755
-pct push $CTID frontend.sh /frontend.sh -perms 755
-pct push $CTID config.toml /config.toml -perms 755
+pct push $CTID frontend.sh /syslogger/frontend.sh -perms 755
+pct push $CTID config.toml /syslogger/config.toml -perms 755
+pct push $CTID crontab /var/spool/cron/crontabs/root -perms 755  
 pct exec $CTID /setup.sh
 
 # Get network details and show completion message

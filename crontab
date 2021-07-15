@@ -1,0 +1,3 @@
+@reboot /syslogger/frontend.sh
+1 0 * * * /syslogger/frontend.sh
+12 6 * * * sudo reboot
