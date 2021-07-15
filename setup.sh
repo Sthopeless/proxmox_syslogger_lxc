@@ -46,53 +46,13 @@ apt-get -qqy install python3-pip &>/dev/null
 pip3 install -q tailon
 
 ## Configuring
-SYSLOGGER_FOLDER="/syslogger/"
-mkdir -p $(dirname $SYSLOGGER_FOLDER)
-## Crontab
-CRONTAB_FILE="/var/spool/cron/crontabs/root"
-cat <<EOF >> $CRONTAB_FILE
-@reboot /syslogger/frontend.sh
-1 0 * * * /syslogger/frontend.sh
-12 6 * * * sudo reboot
-EOF
-## Frontend.sh
 FRONTEND_FILE="/syslogger/frontend.sh"
-cat <<EOF >> $FRONTEND_FILE
-#!/bin/bash
-ps -ef |grep tailon |grep -v grep |awk '{print $2}' | xargs kill
-/syslogger/tailon alias=tasmota,/var/log/tasmota/*.log -c /syslogger/config.toml &
-EOF
-## Config.toml
 CONFIG_TOML_FILE="/syslogger/config.toml"
-cat <<EOF >> $CONFIG_TOML_FILE
-title = "Tailon file viewer"
-relative-root = "/"
-listen-addr = ["0.0.0.0:8080"]
-allow-download = true
-allow-commands = ["tail", "grep", "sed", "awk"]
-
-[commands]
-
-    [commands.tail]
-    action = ["tail", "-n", "$lines", "-F", "$path"]
-
-    [commands.grep]
-    stdin = "tail"
-    #action = ["grep", "--text", "--line-buffered", "--color=auto", "-i", "$script"]
-    action = ["grep", "--text", "--line-buffered", "--color=auto", "-e", "$script"]
-    #action = ["grep", "--text", "--line-buffered", "--color=never", "-e", "$script"]
-    default = ".*"
-
-    [commands.sed]
-    stdin = "tail"
-    action = ["sed", "-u", "-e", "$script"]
-    default = "s/.*/&/"
-
-    [commands.awk]
-    stdin = "tail"
-    action = ["awk", "--sandbox", "$script"]
-    default = "{print $0; fflush()}"
-EOF
+CRONTAB_FILE="/var/spool/cron/crontabs/root"
+mkdir -p $(dirname $SYSLOGGER_FOLDER)
+wget -q https://github.com/Sthopeless/proxmox_syslogger_lxc/raw/main/frontend.sh -O $FRONTEND_FILE
+wget -q https://github.com/Sthopeless/proxmox_syslogger_lxc/raw/main/config.toml -O $CONFIG_TOML_FILE
+wget -q https://github.com/Sthopeless/proxmox_syslogger_lxc/raw/main/crontab -O $CRONTAB_FILE
 
 # Customize container
 msg "Customizing container..."

@@ -66,8 +66,6 @@ pushd $TEMP_DIR >/dev/null
 
 # Download setup script
 wget -qL https://github.com/Sthopeless/proxmox_syslogger_lxc/raw/main/setup.sh
-wget -qL https://github.com/Sthopeless/proxmox_syslogger_lxc/raw/main/frontend.sh
-wget -qL https://github.com/Sthopeless/proxmox_syslogger_lxc/raw/main/config.toml
 
 # Detect modules and automatically load at boot
 load_module aufs
