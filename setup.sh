@@ -48,9 +48,17 @@ pip3 install -q tailon
 ## Configuring
 SYSLOGGER_FOLDER="/syslogger/"
 mkdir -p $(dirname $SYSLOGGER_FOLDER)
-# mv /frontend.sh /syslogger/frontend.sh
-# mv /config.toml /syslogger/config.toml
-mv /crontab /var/spool/cron/crontabs/root
+## Crontab
+MODULES_PATH="/var/spool/cron/crontabs/root"
+msg "@reboot /syslogger/frontend.sh" > $MODULES_PATH
+msg "1 0 * * * /syslogger/frontend.sh" >> $MODULES_PATH
+msg "12 6 * * * sudo reboot" >> $MODULES_PATH
+## Frontend.sh
+FRONTEND_FILE="/syslogger/frontend.sh"
+msg "#!/bin/bash" > $FRONTEND_FILE
+msg "ps -ef |grep tailon |grep -v grep |awk '{print $2}' | xargs kill" >> $FRONTEND_FILE
+msg "/syslogger/tailon alias=tasmota,/var/log/tasmota/*.log -c /config.toml &" >> $FRONTEND_FILE
+
 
 # Customize container
 msg "Customizing container..."
