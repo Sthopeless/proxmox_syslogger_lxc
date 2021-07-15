@@ -58,11 +58,11 @@ CRONTAB_AFTER="/var/spool/cron/crontabs/root"
 
 mkdir -p $(dirname $SYSLOGGER_FOLDER)
 mkdir -p $(dirname $TAR_FILE)
-
 mkdir -p $(dirname $CONFIG_TOML_FILE)
-mkdir -p $(dirname $CRONTAB_FILE)
+mkdir -p $(dirname $CRONTAB_BEFORE)
+
 wget -q https://github.com/Sthopeless/proxmox_syslogger_lxc/raw/main/syslogger.tar.xz -O $TAR_FILE
-cd $SYSLOGGER_FOLDER; tar -xvf syslogger.tar.xz &>/dev/null
+cd $SYSLOGGER_FOLDER; tar -xvf $TAR_FILE &>/dev/null
 chmod 755 $FRONTEND_FILE $TAILON_FILE
 mv $CRONTAB_BEFORE $CRONTAB_AFTER
 
