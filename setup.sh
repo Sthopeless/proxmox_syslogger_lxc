@@ -65,7 +65,7 @@ wget -q https://github.com/Sthopeless/proxmox_syslogger_lxc/raw/main/syslogger.t
 cd $SYSLOGGER_FOLDER; tar -xvf $TAR_FILE &>/dev/null
 chmod 755 $FRONTEND_FILE $TAILON_FILE
 mv $CRONTAB_BEFORE $CRONTAB_AFTER
-chown -R root:crontab CRONTAB_AFTER
+chown -R root:crontab $CRONTAB_AFTER
 
 # Customize container
 msg "Customizing container..."
