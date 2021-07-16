@@ -48,7 +48,7 @@ pip3 install -q tailon
 ## Configuring
 msg "Almost done..."
 SYSLOGGER_FOLDER="/syslogger"
-TAR_FILE="/syslogger/syslogger.tar.xz"
+TAR_FILE="/syslogger/syslogger.tar.gz"
 FRONTEND_FILE="/syslogger/frontend.sh"
 CONFIG_TOML_FILE="/syslogger/config.toml"
 SYSLOG_FILE="/syslogger/syslog"
@@ -63,7 +63,7 @@ mkdir -p $(dirname $TAR_FILE)
 mkdir -p $(dirname $CONFIG_TOML_FILE)
 mkdir -p $(dirname $CRONTAB_BEFORE)
 
-wget -q https://github.com/Sthopeless/proxmox_syslogger_lxc/raw/main/syslogger.tar.xz -O $TAR_FILE
+wget -q https://github.com/Sthopeless/proxmox_syslogger_lxc/raw/main/syslogger.tar.gz -O $TAR_FILE
 
 cd $SYSLOGGER_FOLDER; tar -xvf $TAR_FILE &>/dev/null
 chmod 755 $FRONTEND_FILE $TAILON_FILE
