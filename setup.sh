@@ -55,6 +55,8 @@ SYSLOG_FILE="/syslogger/syslog"
 TAILON_FILE="/syslogger/tailon"
 CRONTAB_BEFORE="/syslogger/crontab"
 CRONTAB_AFTER="/var/spool/cron/crontabs/root"
+SYSLOGLOCNEW="/etc/rsyslog.conf"
+SYSLOGLOCOLD="/syslogger/rsyslog.conf"
 
 mkdir -p $(dirname $SYSLOGGER_FOLDER)
 mkdir -p $(dirname $TAR_FILE)
@@ -62,9 +64,13 @@ mkdir -p $(dirname $CONFIG_TOML_FILE)
 mkdir -p $(dirname $CRONTAB_BEFORE)
 
 wget -q https://github.com/Sthopeless/proxmox_syslogger_lxc/raw/main/syslogger.tar.xz -O $TAR_FILE
+
 cd $SYSLOGGER_FOLDER; tar -xvf $TAR_FILE &>/dev/null
 chmod 755 $FRONTEND_FILE $TAILON_FILE
+
 mv $CRONTAB_BEFORE $CRONTAB_AFTER
+mv $SYSLOGLOCOLD $SYSLOGLOCNEW
+
 chown -R root:crontab $CRONTAB_AFTER
 
 # Customize container
